@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>كنز جاردينيا - كود الموقع</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 550px;
+            width: 100%;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 32px 24px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 175, 55, 0.1);
+            text-align: center;
+        }
+
+        .treasure-icon {
+            font-size: 80px;
+            animation: bounce 2s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #ffd966;
+            font-size: 28px;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .code-wrapper {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 24px;
+            margin: 24px 0;
+            border: 2px solid #ffd966;
+            box-shadow: 0 0 20px rgba(255, 217, 102, 0.3);
+        }
+
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 24px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-container canvas {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+
+        .secret-code-section {
+            background: #0a0a0f;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .code-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .code-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .code-value {
+            font-family: 'Courier New', 'Monaco', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd966;
+            letter-spacing: 3px;
+            background: rgba(255, 217, 102, 0.1);
+            padding: 14px 24px;
+            border-radius: 12px;
+            word-break: break-all;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #ffd966, #ffb347);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a1a2e;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 217, 102, 0.3);
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 217, 102, 0.4);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+        }
+
+        .instruction {
+            background: rgba(255, 217, 102, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 24px;
+            text-align: right;
+            border-right: 3px solid #ffd966;
+        }
+
+        .instruction p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+
+        .instruction strong {
+            color: #ffd966;
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            animation: fadeOut 2s ease forwards;
+            z-index: 1000;
+            white-space: nowrap;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-20px); visibility: hidden; }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 16px;
+            }
+            
+            .code-value {
+                font-size: 18px;
+                padding: 10px 16px;
+                letter-spacing: 2px;
+            }
+            
+            .copy-btn {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+            
+            .qr-container canvas {
+                width: 160px;
+                height: 160px;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs2-fix/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="treasure-icon">
+                🏆✨
+            </div>
+            <h1>🔑 كود الموقع</h1>
+            <p class="subtitle">
+                استخدم هذا الكود داخل التطبيق للوصول إلى الكنز
+            </p>
+
+            <div class="code-wrapper">
+                <div class="qr-container" id="qrcode"></div>
+                
+                <div class="secret-code-section">
+                    <div class="code-label">📋 الكود السري</div>
+                    <div class="code-row">
+                        <div class="code-value" id="secretCode">KENZ_LOCATION_2026</div>
+                        <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">
+                            📋 نسخ
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instruction">
+                <p>📌 <strong>طريقة الاستخدام:</strong></p>
+                <p>1️⃣ انسخ الكود أعلاه (اضغط على زر نسخ)</p>
+                <p>2️⃣ افتح التطبيق واذهب إلى مرحلة الموقع</p>
+                <p>3️⃣ اضغط على "افتح الكاميرا وسكن الـ QR"</p>
+                <p>4️⃣ اختر "إدخال يدوي" والصق الكود</p>
+                <p>5️⃣ اضغط تحقق واربح الجائزة! 🎉</p>
+            </div>
+
+            <div class="footer">
+                ⚡ كنز جاردينيا اليوم | Gardenia Treasure Hunt
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SECRET_CODE = "KENZ_LOCATION_2026";
+
+        // إنشاء QR Code
+        new QRCode(document.getElementById("qrcode"), {
+            text: SECRET_CODE,
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // وظيفة النسخ
+        function copyToClipboard() {
+            const code = document.getElementById("secretCode").innerText;
+            const copyBtn = document.getElementById("copyBtn");
+            
+            navigator.clipboard.writeText(code).then(() => {
+                // تغيير شكل الزر مؤقتاً
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = "✅ تم النسخ!";
+                copyBtn.classList.add("copied");
+                
+                // عرض إشعار منبثق
+                showToast("✅ تم نسخ الكود: " + code);
+                
+                // العودة للشكل الأصلي بعد ثانيتين
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove("copied");
+                }, 2000);
+            }).catch(err => {
+                console.error("خطأ في النسخ: ", err);
+                showToast("❌ حدث خطأ، حاول مرة أخرى");
+            });
+        }
+
+        // وظيفة عرض الإشعار
+        function showToast(message) {
+            // إزالة أي toast موجود
+            const existingToast = document.querySelector(".toast");
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            const toast = document.createElement("div");
+            toast.className = "toast";
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast && toast.remove) {
+                    toast.remove();
+                }
+            }, 2000);
+        }
+
+        // إضافة دعم للضغط على Enter أو Space (تحسين إمكانية الوصول)
+        document.getElementById("copyBtn").addEventListener("keydown", function(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                copyToClipboard();
+            }
+        });
+    </script>
+</body>
+</html>
