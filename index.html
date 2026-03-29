@@ -250,6 +250,9 @@
     </style>
 </head>
 <body>
+    <!-- 🔥 العنصر المخفي الذي سيبحث عنه التطبيق تلقائياً 🔥 -->
+    <div id="kenz-secret-data" data-code="36900" style="display: none;"></div>
+    
     <div class="container">
         <div class="card">
             <div class="treasure-icon">
@@ -280,8 +283,8 @@
                 </h3>
                 <p><strong>1️⃣</strong> اضغط على زر <strong>"نسخ"</strong> لنسخ الكود</p>
                 <p><strong>2️⃣</strong> افتح التطبيق واذهب إلى مرحلة الموقع</p>
-                <p><strong>3️⃣</strong> اضغط على <strong>"افتح الكاميرا وسكن الـ QR"</strong></p>
-                <p><strong>4️⃣</strong> اختر <strong>"إدخال يدوي"</strong> والصق الكود</p>
+                <p><strong>3️⃣</strong> اضغط على <strong>"إدخال الكود"</strong></p>
+                <p><strong>4️⃣</strong> الصق الكود في الحقل</p>
                 <p><strong>5️⃣</strong> اضغط <strong>تحقق</strong> واربح الجائزة! 🎉</p>
             </div>
 
@@ -389,6 +392,13 @@
             
             showToast("✨ حدد الكود، اضغط نسخ أو انسخ يدوياً");
         });
+        
+        // 🔥 تسجيل في الكونسول للتأكد من وجود العنصر المخفي 🔥
+        console.log("✅ Page loaded - Secret code element exists:", document.getElementById("kenz-secret-data"));
+        const secretDataDiv = document.getElementById("kenz-secret-data");
+        if (secretDataDiv) {
+            console.log("✅ Secret code value:", secretDataDiv.getAttribute("data-code"));
+        }
     </script>
 </body>
 </html>
